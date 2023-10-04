@@ -251,7 +251,7 @@ codeql::ModuleDecl DeclTranslator::translateModuleDecl(const swift::ModuleDecl& 
 void DeclTranslator::fillFunction(const swift::AbstractFunctionDecl& decl,
                                   codeql::Function& entry) {
   entry.name = !decl.hasName() ? "(unnamed function decl)" : constructName(decl.getName());
-  entry.body = dispatcher.fetchOptionalLabel(decl.getBody());
+  entry.body = dispatcher.fetchOptionalLabel(decl.getBody(false));
   CODEQL_EXPECT_OR(return, decl.hasParameterList(), "Function {} has no parameter list",
                          *entry.name);
   entry.params = dispatcher.fetchRepeatedLabels(*decl.getParameters());
